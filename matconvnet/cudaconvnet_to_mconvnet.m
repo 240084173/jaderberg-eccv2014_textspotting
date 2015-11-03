@@ -8,12 +8,13 @@ function net = cudaconvnet_to_mconvnet(cnet_fn)
     end
     
     layers = load_nostruct(cnet_fn);
+    %在detnet中layers是一个1*1struct,其中有20个fields，从layer0到layer19的层
 
     % create a net
-    net = neuralnetwork();
+    net = neuralnetwork();%初始化net,net是一个1*1struct 有17个fields
     
     % compose from cuda-convnet layers
-    fields = fieldnames(layers);
+    fields = fieldnames(layers);%获取每一层的名字 layer0等等等 fields是一个20*1的cell
     allowed_types = {'conv', 'fc', 'softmax', 'eltmax'};
     while ~isempty(fields)
         layer = layers.(fields{1});
